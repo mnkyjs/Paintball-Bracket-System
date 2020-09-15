@@ -1,0 +1,60 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="side" opened>
+    <button
+      style="width: 100%; margin-bottom: 10px"
+      class="hover-color"
+      mat-raised-button
+      color="accent"
+      (click)="drawer.toggle() && (showSidebar = false)"
+    >
+      Menü einklappen
+    </button>
+    <mat-accordion *ngFor="let field of paintballfields; trackBy: trackByFn">
+      <mat-expansion-panel style="margin-bottom: 5px" class="secondary">
+        <mat-expansion-panel-header class="primary">
+          <mat-panel-title>
+            {{ field.name | titlecase }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-panel-description>
+          <div id="container">
+            <div id="fontColor">Termine:</div>
+            <br />
+            <div>
+              <mat-nav-list>
+                <mat-list-item
+                  class="hover-color"
+                  *ngFor="let item of field.nameAndDate; trackBy: trackByFn"
+                  (click)="drawer.toggle() && onSelect(item.date, item.name)"
+                >
+                  <!-- <button mat-icon-button (click)="showInfo(date)"> -->
+
+                  <p style="padding: 12px 8px 0px 0px; vertical-align: top; font-size: 1.25em">
+                    {{ item.name }}
+                  </p>
+                  <button style="float: right" mat-stroked-button color="green">
+                    {{ item.date | date: 'dd.MM.yyyy' }}
+                  </button>
+                </mat-list-item>
+              </mat-nav-list>
+            </div>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button
+      *ngIf="!showSidebar"
+      style="margin: 10px"
+      class="hover-color"
+      mat-raised-button
+      color="primary"
+      (click)="drawer.toggle() && (showSidebar = true)"
+    >
+      Menü aufklappen
+    </button>
+    <app-match-view *ngIf="matches" [matches]="matches" [showButton]="showSidebar"></app-match-view>
+  </mat-drawer-content>
+</mat-drawer-container>

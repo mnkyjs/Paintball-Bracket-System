@@ -1,0 +1,71 @@
+<div id="parent">
+  <form id="form_login" class="example-form" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+    <h2 class="text-center text-primary">Registrieren</h2>
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        type="text"
+        class="form-control"
+        required
+        name="username"
+        [(ngModel)]="model.userName"
+        placeholder="Username"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        type="password"
+        class="form-control"
+        required
+        name="password"
+        [(ngModel)]="model.password"
+        placeholder="Password"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        type="text"
+        class="form-control"
+        name="teamname"
+        [(ngModel)]="model.teamName"
+        placeholder="Teamname"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="invisible example-full-width">
+      <input matInput type="text" class="form-control" name="nickname" [(ngModel)]="nickname" placeholder="nickname" />
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-stroked-button color="primary">Erstellen</button>
+      <button mat-stroked-button color="accent" (click)="cancel()">Abbruch</button>
+    </div>
+  </form>
+</div>
+
+<div>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Benutzerdaten</mat-card-title>
+      <mat-card-subtitle>Was wird von mir gespeichert?!</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>
+        Kurz und knapp NICHTS. Aktuell werden keine persönlichen Daten wie Name, Geburtsdatum, Adresse oder e-Mail
+        Adresse gespeichert. Einfach weil ich keine Lust auf irgendwelchen Ärger seitens DSGVO haben möchte.
+      </p>
+      <p>
+        Die Registrierung ist freiwillig und es werden nur der Nickname - welcher ein erfundender Name sein kann -
+        gespeichert. Das Passwort wird per Cryptography HMACSHA512 verschlüsselt, so dass es für niemanden (auch mich
+        nicht!) einsehbar ist. Sprich habt ihr euer Passwort vergessen, ist es aktuell nicht möglich dieses
+        zurückzusetzen!!!
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

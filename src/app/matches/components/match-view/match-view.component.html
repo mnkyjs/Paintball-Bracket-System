@@ -1,0 +1,84 @@
+<!-- <div class="panel panel-default row">
+    <div class="col-sm-4"></div>
+    <div class="panel-body col-sm-4">
+        <ul class="list-group" *ngFor="let match of matches; index as i">
+            <li style="list-style-type: none" *ngIf="i % 2 == 0">
+                <a> Block {{ (i + 2) / 2 }} </a>
+                <img />
+            </li>
+            <li class="list-group-item" style="text-align: center">
+                {{ match[0].name | titlecase }}
+                <span class="badge badge-danger badge-pill">VS</span>
+                {{ match[1].name | titlecase }}
+            </li>
+        </ul>
+    </div>
+</div> -->
+
+<button
+  *ngIf="!showButton"
+  style="float: right; margin: 10px"
+  class="hover-color"
+  mat-raised-button
+  color="accent"
+  (click)="pdf.saveAs('Spielplan.pdf')"
+>
+  Download als PDF
+</button>
+
+<kendo-pdf-export #pdf paperSize="A4" [scale]="0.5">
+  <div id="contentToConvert">
+    <div id="matchCard" *ngIf="tempMatches.length > 0; else smallMatch">
+      <div *ngFor="let match of tempMatches; index as i; trackBy: trackByFn">
+        <mat-card class="secondary" style="margin-top: 10px">
+          <mat-card-title>Block {{ i + 1 }}</mat-card-title>
+
+          <ul class="list-group">
+            <mat-chip-list>
+              <mat-list id="matchListItem" role="list">
+                <mat-list-item role="listitem"
+                  >{{ match[0].name | titlecase }}
+
+                  <mat-chip color="primary">VS</mat-chip>
+
+                  {{ match[1].name | titlecase }}</mat-list-item
+                >
+                <mat-list-item role="listitem"
+                  >{{ match[2].name | titlecase }}
+
+                  <mat-chip color="primary">VS</mat-chip>
+
+                  {{ match[3].name | titlecase }}</mat-list-item
+                >
+              </mat-list>
+            </mat-chip-list>
+          </ul>
+        </mat-card>
+      </div>
+    </div>
+
+    <ng-template #smallMatch>
+      <div id="matchCard" *ngIf="matches">
+        <div *ngFor="let match of matches; index as i; trackBy: trackByFn">
+          <mat-card style="margin-top: 10px">
+            <mat-card-title>Block {{ i + 1 }}</mat-card-title>
+
+            <ul class="list-group">
+              <mat-chip-list>
+                <mat-list id="matchListItem" role="list">
+                  <mat-list-item role="listitem"
+                    >{{ match[0].name | titlecase }}
+
+                    <mat-chip color="primary">VS</mat-chip>
+
+                    {{ match[1].name | titlecase }}</mat-list-item
+                  >
+                </mat-list>
+              </mat-chip-list>
+            </ul>
+          </mat-card>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</kendo-pdf-export>

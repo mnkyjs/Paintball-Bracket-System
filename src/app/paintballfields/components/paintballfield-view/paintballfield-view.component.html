@@ -1,0 +1,79 @@
+<form [formGroup]="fieldForm" *ngIf="!data.showDetails; else showDetails">
+  <div mat-dialog-content>
+    <p>Wie heißt das neue Feld?</p>
+    <input type="hidden" formControlName="id" [(ngModel)]="data.field.id" />
+    <mat-form-field>
+      <input class="form-control" required matInput placeholder="Feldname" formControlName="name" />
+      <mat-error>Du musst ein Feldnamen eingeben!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input class="form-control" required matInput placeholder="Straße" formControlName="street" />
+      <mat-error>Du musst ein Straße eingeben!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input class="form-control" matInput placeholder="Hausnummer" formControlName="houseNumber" />
+      <mat-error>Du musst eine Hausnummer eingeben!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input class="form-control" required matInput placeholder="Postleitzahl" formControlName="postalCode" />
+      <mat-error>Du musst eine Postleitzahl eingeben!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input class="form-control" required matInput placeholder="Ort" formControlName="place" />
+      <mat-error>Du musst ein Ort eingeben!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input class="form-control" matInput placeholder="Telefonnummer" formControlName="phoneNumber" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Bundesland</mat-label>
+      <mat-select formControlName="locationId" required [(value)]="tempLocation.name">
+        <mat-option *ngFor="let location of locations; trackBy: trackByFn" [value]="location.id">
+          {{ location.name | titlecase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button (click)="onNoClick()">Abbruch</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="create()"
+      type="submit"
+      [mat-dialog-close]="data.field.name"
+      [disabled]="!fieldForm.valid"
+    >
+      Speichern
+    </button>
+  </div>
+</form>
+
+<ng-template #showDetails>
+  <div class="example-element-description">
+    <h1>{{ data.field.name | titlecase }}</h1>
+    <p>
+      Telefonnummer:
+      <a href="tel:{{ data.field.phoneNumber }}">{{ data.field.phoneNumber }}</a>
+    </p>
+    <p>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://maps.google.com/?q={{ data.field.postalCode }} {{ data.field.place }} {{ data.field.street }} {{
+          data.field.houseNumber
+        }}"
+        >Adresse:</a
+      >
+      {{ data.field.street }} {{ data.field.houseNumber }}
+    </p>
+    <p>Ort: {{ data.field.postalCode }} {{ data.field.place }}</p>
+  </div>
+  <button class="hover-color" mat-stroked-button (click)="onNoClick()">Schließen</button>
+</ng-template>

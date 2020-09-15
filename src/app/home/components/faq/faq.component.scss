@@ -1,0 +1,17 @@
+@import '../../../style/variables';
+
+.example-card {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $secondary !important;
+}
+
+.example-header-image {
+  background-image: url('../../../../assets/images/icons8-info-64.png');
+  background-size: cover;
+}
+
+.example-tab-icon {
+  margin-right: 8px;
+}

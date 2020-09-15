@@ -1,0 +1,246 @@
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">view_list</mat-icon>
+      Fragen zur Applikation
+    </ng-template>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Was kann diese Applikation </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>BracketSystem</mat-card-title>
+              <mat-card-subtitle>Namensvorschläge für die Applikation werden noch entgegen genommen</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p>
+                Letztlich soll diese Seite als kleine Anlaufstelle für alle Paintballer sein, die es Leid sind irgendwo
+                zum Training / Clash zu fahren und keiner hat sich ein Kopf über einen Ablauf / Spielplan gemacht.
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-panel-description>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Wie funktioniert das bzw. was muss ich machen? </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Bedienung</mat-card-title>
+              <mat-card-subtitle>Wie kann ich wo was machen?!</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p>
+                Ohne euch regestrieren zu müssen, könnt ihr die Seite bereits nutzen. Ihr könnt unter anderem erstellte
+                Spielpläne einsehen und Informationen über Spielfelder erhalten.
+              </p>
+              <p>
+                Wenn ihr Spielpläne anlegen wollt, könnt ihr das im Bereich "Spielplan erstellen" machen. Dieses ist
+                gänzlich einfach, ihr müsst dafür drei Schritte durchlaufen.
+              </p>
+              <p>
+                Im ersten wählt ihr die Teams aus, die für das Training / Clash zugesagt haben. Ist das Team nicht
+                vorhanden?! Kein Problem! Einfach kurz hinzufügen!
+              </p>
+              <p>Im nächsten Schritt wählt ihr Datum und Ort (Spielfeld) aus. (Beides ist erforderlich!)</p>
+              <p>
+                Im letzten Schritt müsst ihr eurem Spielplan einen Anzeigenamen geben und auswählen ob ihr für den Tag
+                bereits einen Spielplan erstellt habt. Sollte dieses der Fall sein, müsst ihr entscheiden ob ihr den
+                bereits erstellten Spielplan behalten möchtet oder nicht. Wenn ja, klickt die Checkbox an. Sonst wird
+                nur euer neu erstellter Spielplan gespeichert.
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-panel-description>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Allgemeine Abläufe in der Applikation </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Allgemeine Punkte</mat-card-title>
+              <mat-card-subtitle></mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p>
+                <strong> Mein Spielplan wird nicht angezeigt</strong>
+                <br />
+                Das kann daran liegen, dass dieser in der Vergangenheit liegt. Es werden nur Spielpläne vom heutigen Tag
+                oder geplante Tage angezeigt.
+              </p>
+              <p>
+                <strong> Mein Ort / Spielfeld wird nicht angezeigt</strong>
+                <br />
+                Kein Problem! Dann sei bitte so nett und lege es unter dem Punkt Paintballfelder an. Am besten mit
+                Adresse, dann kann man diese per Klick in Google-Maps übernehmen.
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+              </p>
+              <!-- <p>
+                                <strong>
+                                    Ich kann Einträge nicht löschen</strong
+                                >
+                                <br />
+                                Du kannst nur Einträge löschen, die du selbst
+                                erstellt hast. Solltest du trotzdem ein Problem
+                                haben, schreib mich im PbHub (Hunni) an oder schreib mir
+                                ne e-Mail.
+                            </p> -->
+              <p>
+                <strong> Wieso steht da pause als Gegnerteam</strong>
+                <br />
+                Das liegt an der ungeraden Anzahl an Teams für diesen Tag. Damit das System trotzdem funktioniert, hat
+                ein Team dann Pause. Oder ihr streicht dieses Spiel und macht einen Triple-Block daraus. (Absprache
+                Vorort erforderlich)
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+  <!-- <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">feedback</mat-icon>
+            Fragen zu den Benutzerdaten
+        </ng-template>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Was wird von mir gespeichert
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div
+                                mat-card-avatar
+                                class="example-header-image"
+                            ></div>
+                            <mat-card-title>Benutzerdaten</mat-card-title>
+                            <mat-card-subtitle></mat-card-subtitle>
+                        </mat-card-header>
+
+                        <mat-card-content>
+                            <p>
+                                Kurz und knapp NICHTS. Aktuell werden keine
+                                persönlichen Daten wie Name, Geburtsdatum,
+                                Adresse oder e-Mail Adresse gespeichert. Einfach
+                                weil ich keine Lust auf irgendwelchen Ärger
+                                seitens DSGVO haben möchte.
+                            </p>
+                            <p>
+                                Die Registrierung ist freiwillig und es werden
+                                nur der Nickname - welcher ein erfundender Name
+                                sein kann - gespeichert. Das Passwort wird per
+                                Cryptography HMACSHA512 verschlüsselt, so dass
+                                es für niemanden (auch mich nicht!) einsehbar
+                                ist. Sprich habt ihr euer Passwort vergessen,
+                                ist es aktuell nicht möglich dieses
+                                zurückzusetzen!!!
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-panel-description>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Wo finde ich meine Daten / Einträge
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div
+                                mat-card-avatar
+                                class="example-header-image"
+                            ></div>
+                            <mat-card-title>Einträge</mat-card-title>
+                            <mat-card-subtitle></mat-card-subtitle>
+                        </mat-card-header>
+
+                        <mat-card-content>
+                            <p>
+                                Eure erstellten Spielpläne findet ihr im
+                                persönlichen Bereich. Dafür einfach auf euren
+                                Namen oben rechts klicken und auf "edit Profile"
+                                gehen. Dort seht ihr eure Einträge, aktuell
+                                "nur" eure Spielpläne, welche ihr dort löschen
+                                könnt.
+                            </p>
+                            <p>
+                                Dieser Bereich wird nach und nach von mir
+                                erweitert. Da ich aber selbst einen Vollzeitjob
+                                habe, werden manche Umsetzungen / Erweiterungen
+                                vielleicht etwas dauern.
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
+                </mat-panel-description>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-tab> -->
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">room</mat-icon>
+      Geplante Erweiterungen
+    </ng-template>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Was sind die nächsten Schritte </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Erweiterungen</mat-card-title>
+              <mat-card-subtitle></mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <p>
+                <strong>Export als PDF</strong>
+                <br />
+                Es soll die Möglichkeit bestehen, dass man den Spielplan als PDF herunterladen kann. Vor allem um diesen
+                mobil auf dem Handy dabei zu haben. Jaaaaa und ihn auch ausdrucken zu können. Auch wenn ich davon kein
+                Fan bin, der Umwelt zu liebe.
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon><br />
+                UMGESETZT
+                <mat-icon matSuffix>done_outline</mat-icon>
+              </p>
+              <p>
+                <strong>Erweitern der Möglichkeit eines triple Block-Systems</strong>
+                <br />
+                Manchmal bietet sich die Gelegenheit an, anstatt einem Double-Block-Systems, ein Triple-Block-System
+                vorzuziehen.
+              </p>
+              <p>
+                <strong>Einreichen von Ideen</strong>
+                <br />
+                Ihr habt ne coole Idee oder Anregung für die Seite. Dann möchte ich dafür einen Platz schaffen, wo ihr
+                diese Idee eintragen könnt.
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+</mat-tab-group>

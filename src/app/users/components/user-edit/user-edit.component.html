@@ -1,0 +1,45 @@
+<form [formGroup]="userForm" class="normal-form">
+  <h1 mat-dialog-title>Hallo {{ data.nickname | titlecase }}</h1>
+  <div mat-dialog-content>
+    <p>Was möchtest du ändern?</p>
+    <input type="hidden" formControlName="id" [(ngModel)]="data.user.id" />
+    <input type="hidden" formControlName="created" />
+    <mat-form-field>
+      <input formControlName="userName" matInput placeholder="Username*" [disabled] />
+      <mat-error>Du musst ein Namen eingeben!</mat-error>
+    </mat-form-field>
+    <p>Berechtigung:</p>
+    <div
+      style="margin: 5px 0px 5px 0px"
+      class="form-check"
+      *ngFor="let role of data.roles; index as i; trackBy: trackByFn"
+    >
+      <input
+        formControlName="userName[i]"
+        type="checkbox"
+        value="{{ role.name }}"
+        [checked]="role.checked"
+        (ngModelChange)="role.checked = !role.checked"
+        (change)="onCheckboxChange(data.roles[i].name, $event)"
+      />
+      <label>{{ role.name }}</label>
+    </div>
+
+    <mat-form-field style="margin-top: 5px"
+      ><input formControlName="teamName" matInput placeholder="Teamname"
+    /></mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Abbruch</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [mat-dialog-close]="data.user.userName"
+      (click)="create()"
+      [disabled]="!userForm.valid"
+    >
+      Submit
+    </button>
+  </div>
+</form>

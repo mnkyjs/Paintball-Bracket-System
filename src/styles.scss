@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+// @import '../node_modules/@angular/material/prebuilt-themes/purple-green.css';
+// @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
+
+@use 'app/style/bracket-theme.scss';
+@import 'app/style/variables.scss';
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+#fontColor {
+  color: $font-Color !important;
+}
+
+#fontAccent {
+  color: bracket-theme.$accent !important;
+}
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+button.mat-button .mat-icon,
+a.mat-button .mat-icon,
+a.mat-raised-button .mat-icon,
+a.mat-flat-button .mat-icon,
+a.mat-stroked-button .mat-icon {
+  vertical-align: top;
+  font-size: 1.5em;
+}
+
+#brand .mat-icon {
+  vertical-align: top;
+  font-size: 1.5em;
+}
+
+.full-with {
+  width: 100% !important;
+  min-width: unset !important;
+}
+
+.hover-color:hover {
+  color: bracket-theme.$accent-hover !important;
+}
+
+.primary-color:hover {
+  color: bracket-theme.$primary !important;
+}
+
+.primary {
+  background-color: bracket-theme.$primary !important;
+}
+
+.secondary {
+  background-color: $secondary !important;
+}
