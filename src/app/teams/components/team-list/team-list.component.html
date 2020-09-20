@@ -117,14 +117,16 @@
 
       <div class="button-row">
         <button mat-stroked-button class="primary-color" matStepperPrevious>Zurück</button>
-        <button mat-stroked-button color="warn" class="hover-color" (click)="stepper.reset()">Reset</button>
+        <button mat-stroked-button color="warn" class="hover-color" (click)="stepper.reset(); this.selected = []">
+          Reset
+        </button>
         <button
           id="submitBtn"
           mat-stroked-button
           class="hover-color"
           color="accent"
           type="submit"
-          (click)="postSchedule(); stepper.reset()"
+          (click)="postSchedule(); stepper.reset(); this.selected = []"
         >
           Erstellen
         </button>

@@ -34,6 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -72,6 +73,7 @@ export function tokenGetter() {
       },
     }),
     PDFExportModule,
+    NgbModule,
   ],
   providers: [
     { provide: API_URL, useValue: environment.apiUrl },

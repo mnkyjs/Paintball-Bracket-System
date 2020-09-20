@@ -3,6 +3,8 @@
 // @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 @use 'app/style/bracket-theme.scss';
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap/dist/css/bootstrap-reboot.min.css';
 @import 'app/style/variables.scss';
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/material.scss';
@@ -65,3 +67,6 @@ a.mat-stroked-button .mat-icon {
 .secondary {
   background-color: $secondary !important;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

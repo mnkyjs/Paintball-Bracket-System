@@ -4,7 +4,6 @@ import { ScheduleService } from '../../services/schedule.service';
 import { Input } from '@angular/core';
 import { Schedule } from '../../core/classes/Schedule';
 import { OnChanges } from '@angular/core';
-import { empty } from 'rxjs';
 import { AuthUser } from 'src/app/users/core/classes/user';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -18,7 +17,10 @@ export class MatchViewComponent implements OnInit, OnChanges {
   @Input() matches: Schedule[];
   @Input() showButton: boolean;
   // matches: any;
-  tempMatches: any[] = [];
+  public responseMatches: any[] = [];
+  public splitArrayForLeftSide = [];
+  public splitArrayForRightSide = [];
+
   smallMatch: Schedule;
   author: AuthUser;
   scale = 0.8;
@@ -29,12 +31,14 @@ export class MatchViewComponent implements OnInit, OnChanges {
     // this.getMatchByDate();
     this.pushTempMatches();
     this.getAuthor();
+    this.splitMatches();
   }
 
   ngOnChanges() {
-    this.tempMatches = [];
+    this.responseMatches = [];
     this.pushTempMatches();
     this.getAuthor();
+    this.splitMatches();
   }
 
   getAuthor() {
@@ -47,6 +51,18 @@ export class MatchViewComponent implements OnInit, OnChanges {
     }
   }
 
+  public splitMatches() {
+    this.splitArrayForLeftSide = this.matches.slice(0, this.matches.length / 2);
+    this.splitArrayForRightSide = this.matches.slice(this.matches.length / 2, this.matches.length);
+
+    for (const item of this.splitArrayForLeftSide) {
+      console.log(` Array left ${item[0].name} vs ${item[1].name}`);
+    }
+    for (const item of this.splitArrayForRightSide) {
+      console.log(` Array right ${item[0].name} vs ${item[1].name}`);
+    }
+  }
+
   pushTempMatches() {
     if (this.matches.length > 2) {
       const tempMatch = [];
@@ -54,7 +70,7 @@ export class MatchViewComponent implements OnInit, OnChanges {
         if (tempMatch.length <= 0) {
           tempMatch.push(item);
         } else {
-          this.tempMatches.push(tempMatch[0].concat(item));
+          this.responseMatches.push(tempMatch[0].concat(item));
           tempMatch.length = 0;
         }
       }
