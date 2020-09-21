@@ -26,51 +26,57 @@
   Download als PDF
 </button>
 
-<kendo-pdf-export #pdf paperSize="A4" [scale]="0.5">
+<kendo-pdf-export #pdf paperSize="A4" [scale]="0.445">
   <div id="contentToConvert" class="mt-5">
     <div id="matchCard" *ngIf="responseMatches.length > 0; else smallMatch">
-      <div class="row mb-2">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
         <ng-container *ngFor="let match of responseMatches; index as i; trackBy: trackByFn">
-          <div class="col-md-6" *ngIf="i % 2 == 0; else rightSide">
+          <div class="col" *ngIf="i % 2 == 0; else rightSide">
             <div
-              class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+              class="row no-gutters border rounded overflow-hidden flex-md-row shadow-sm mb-2 position-relative"
+              style="height: 160px"
             >
-              <div class="col p-4 d-flex flex-column position-static">
+              <div class="col p-3 d-flex flex-column position-static">
                 <strong class="d-inline-block mb-2 text-primary">Block {{ i + 1 }}</strong>
-                <p class="card-text mb-auto">
+                <p class="card-text mb-auto text-xs-center text-xl-left">
                   {{ match[0].name | titlecase }}
-                  VS
+
+                  <span class="badge badge-info">VS</span>
 
                   {{ match[1].name | titlecase }}
                 </p>
-                <p style="color: black" class="card-text mb-auto">
+                <br />
+                <p class="card-text mb-auto text-xs-center text-xl-left">
                   {{ match[2].name | titlecase }}
 
-                  VS
+                  <span class="badge badge-info">VS</span>
 
                   {{ match[3].name | titlecase }}
                 </p>
               </div>
             </div>
           </div>
+
           <ng-template #rightSide>
-            <div class="col-md-6">
+            <div class="col">
               <div
-                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+                class="row no-gutters border rounded overflow-hidden flex-md-row mb-2 shadow-sm position-relative"
+                style="height: 160px"
               >
-                <div class="col p-4 d-flex flex-column position-static">
+                <div class="col p-3 d-flex flex-column position-static">
                   <strong class="d-inline-block mb-2 text-success">Block {{ i + 1 }}</strong>
-                  <p class="card-text mb-auto">
+                  <p class="card-text mb-auto text-xs-center text-xl-left">
                     {{ match[0].name | titlecase }}
 
-                    VS
+                    <span class="badge badge-info">VS</span>
 
                     {{ match[1].name | titlecase }}
                   </p>
-                  <p style="color: black" class="card-text mb-auto">
+                  <br />
+                  <p class="card-text mb-auto text-xs-center text-xl-left">
                     {{ match[2].name | titlecase }}
 
-                    VS
+                    <span class="badge badge-info">VS</span>
 
                     {{ match[3].name | titlecase }}
                   </p>
@@ -79,27 +85,6 @@
             </div>
           </ng-template>
         </ng-container>
-
-        <!-- <ul class="list-group">
-            <mat-chip-list>
-              <mat-list id="matchListItem" role="list">
-                <mat-list-item role="listitem"
-                  >{{ match[0].name | titlecase }}
-
-                  <mat-chip color="primary">VS</mat-chip>
-
-                  {{ match[1].name | titlecase }}</mat-list-item
-                >
-                <mat-list-item role="listitem"
-                  >{{ match[2].name | titlecase }}
-
-                  <mat-chip color="primary">VS</mat-chip>
-
-                  {{ match[3].name | titlecase }}</mat-list-item
-                >
-              </mat-list>
-            </mat-chip-list>
-          </ul> -->
       </div>
     </div>
 

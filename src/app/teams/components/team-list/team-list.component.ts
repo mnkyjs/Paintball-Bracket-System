@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Team } from '../../core/classes/team';
 import { Field } from 'src/app/paintballfields/core/classes/field';
 import { Schedule } from 'src/app/matches/core/classes/Schedule';
@@ -11,6 +11,7 @@ import { TeamViewComponent } from '../team-view/team-view.component';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { FieldService } from 'src/app/paintballfields/services/field.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-team-list',
@@ -18,7 +19,9 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
   styleUrls: ['./team-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamListComponent implements OnInit {
+export class TeamListComponent implements OnInit, OnDestroy {
+  // Observable workflow fix
+  public subscription: Subscription = new Subscription();
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   public isLinear = true;
@@ -44,6 +47,9 @@ export class TeamListComponent implements OnInit {
     private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.loadDependecies();
@@ -61,18 +67,22 @@ export class TeamListComponent implements OnInit {
   }
 
   loadDependecies() {
-    this.fieldService.getField().subscribe(
-      (fields: Field[]) => {
-        this.paintballfield = fields;
-      },
-      (error) => {
-        this.alert.error(error);
-      }
+    this.subscription.add(
+      this.fieldService.getField().subscribe(
+        (fields: Field[]) => {
+          this.paintballfield = fields;
+        },
+        (error) => {
+          this.alert.error(error);
+        }
+      )
     );
-    this.teamService.getTeamForList().subscribe((teams: Team[]) => {
-      this.teams = teams;
-      this.temp = [...this.teams];
-    });
+    this.subscription.add(
+      this.teamService.getTeamForList().subscribe((teams: Team[]) => {
+        this.teams = teams;
+        this.temp = [...this.teams];
+      })
+    );
   }
 
   onSelect({ selected }) {
@@ -90,15 +100,15 @@ export class TeamListComponent implements OnInit {
   onActivate(event) {}
 
   add() {
-    // console.log('Not implemented');
+    console.log('Not implemented');
   }
 
   update() {
-    // console.log('Not implemented');
+    console.log('Not implemented');
   }
 
   remove() {
-    // console.log('Not implemented');
+    console.log('Not implemented');
   }
 
   displayCheck(row) {
@@ -130,11 +140,12 @@ export class TeamListComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(TeamViewComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.team = result;
-      this.ngOnInit();
-    });
+    this.subscription.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        this.team = result;
+        this.ngOnInit();
+      })
+    );
   }
 
   onEdit(value) {
@@ -148,22 +159,25 @@ export class TeamListComponent implements OnInit {
       team: this.team,
     };
     const dialogRef = this.dialog.open(TeamViewComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.team = result;
-      this.ngOnInit();
-    });
+    this.subscription.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        this.team = result;
+        this.ngOnInit();
+      })
+    );
   }
 
   onDelete(id: number) {
-    this.teamService.deleteTeam(id).subscribe(
-      () => {
-        this.alert.success('Erfolgreich gelöscht');
-        this.ngOnInit();
-      },
-      (error) => {
-        this.alert.error(error);
-      }
+    this.subscription.add(
+      this.teamService.deleteTeam(id).subscribe(
+        () => {
+          this.alert.success('Erfolgreich gelöscht');
+          this.ngOnInit();
+        },
+        (error) => {
+          this.alert.error(error);
+        }
+      )
     );
   }
 
@@ -189,15 +203,16 @@ export class TeamListComponent implements OnInit {
       }
 
       this.scheduleToCreate.teams = teamsForApi;
-
-      this.scheduleService.postSchedule(this.scheduleToCreate).subscribe(
-        (response) => {
-          this.alert.success('Erstellt!');
-          this.ngOnInit();
-        },
-        (error) => {
-          this.alert.error('Da lief was schief');
-        }
+      this.subscription.add(
+        this.scheduleService.postSchedule(this.scheduleToCreate).subscribe(
+          (response) => {
+            this.alert.success('Erstellt!');
+            this.ngOnInit();
+          },
+          (error) => {
+            this.alert.error('Da lief was schief');
+          }
+        )
       );
     } else if (this.selected.length < 1) {
       this.alert.error('Wähle mehr als ein Team aus!');

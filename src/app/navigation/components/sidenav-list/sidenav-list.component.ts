@@ -40,9 +40,9 @@ export class SidenavListComponent implements OnInit {
     return this.authService.loggedIn();
   }
 
-  public onSidenavClose = () => {
+  public onSidenavClose() {
     this.sidenavClose.emit();
-  };
+  }
 
   logout() {
     localStorage.removeItem('token');

@@ -56,24 +56,57 @@
 </form>
 
 <ng-template #showDetails>
-  <div class="example-element-description">
-    <h1>{{ data.field.name | titlecase }}</h1>
-    <p>
-      Telefonnummer:
-      <a href="tel:{{ data.field.phoneNumber }}">{{ data.field.phoneNumber }}</a>
-    </p>
-    <p>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://maps.google.com/?q={{ data.field.postalCode }} {{ data.field.place }} {{ data.field.street }} {{
-          data.field.houseNumber
-        }}"
-        >Adresse:</a
-      >
-      {{ data.field.street }} {{ data.field.houseNumber }}
-    </p>
-    <p>Ort: {{ data.field.postalCode }} {{ data.field.place }}</p>
+  <div class="container">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="mb-0">
+              <span class="material-icons" id="span-Icon"> home </span>
+              Feld
+            </h5>
+          </div>
+          <div class="col-sm-8 text-secondary">{{ data.field.name | titlecase }}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="mb-0">
+              <span class="material-icons" id="span-Icon"> call </span>
+              TelefonNr.:
+            </h5>
+          </div>
+          <div class="col-sm-8 text-secondary">
+            <a href="tel:{{ data.field.phoneNumber }}">{{ data.field.phoneNumber }}</a>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="mb-0">
+              <span class="material-icons" id="span-Icon"> place </span>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://maps.google.com/?q={{ data.field.postalCode }} {{ data.field.place }} {{
+                  data.field.street
+                }} {{ data.field.houseNumber }}"
+                >Adresse:</a
+              >
+            </h5>
+          </div>
+          <div class="col-sm-8 text-secondary">{{ data.field.street }} {{ data.field.houseNumber }}</div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="mb-0"><span class="material-icons" id="span-Icon"> location_city </span>Ort:</h5>
+          </div>
+          <div class="col-sm-8 text-secondary">{{ data.field.postalCode }} {{ data.field.place }}</div>
+        </div>
+        <hr />
+        <button class="hover-color" mat-stroked-button (click)="onNoClick()">Schließen</button>
+      </div>
+    </div>
   </div>
-  <button class="hover-color" mat-stroked-button (click)="onNoClick()">Schließen</button>
 </ng-template>

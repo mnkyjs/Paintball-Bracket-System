@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FieldService } from 'src/app/paintballfields/services/field.service';
 import { Field } from 'src/app/paintballfields/core/classes/field';
 import { ScheduleService } from '../../services/schedule.service';
 import { Schedule } from '../../core/classes/Schedule';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { NameAndDate } from 'src/app/paintballfields/core/classes/nameAndDate';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-match-list',
   templateUrl: './match-list.component.html',
   styleUrls: ['./match-list.component.scss'],
 })
-export class MatchListComponent implements OnInit {
+export class MatchListComponent implements OnInit, OnDestroy {
+  // Observable workflow fix
+  public subscription: Subscription = new Subscription();
+
   paintballfields: Field[];
   paintballfield: Field;
   matches: Schedule[] = [];
@@ -20,11 +24,16 @@ export class MatchListComponent implements OnInit {
   showSidebar = true;
 
   constructor(private fieldService: FieldService, private matchService: ScheduleService, private alert: AlertService) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
-    this.fieldService.getFieldsWithMatches().subscribe((fields: Field[]) => {
-      this.paintballfields = fields;
-    });
+    this.subscription.add(
+      this.fieldService.getFieldsWithMatches().subscribe((fields: Field[]) => {
+        this.paintballfields = fields;
+      })
+    );
     this.currentDate = new Date();
   }
 
@@ -33,20 +42,24 @@ export class MatchListComponent implements OnInit {
     this.dateAndName = new NameAndDate();
     this.dateAndName.date = getDate;
     this.dateAndName.name = getName;
-    this.matchService.getMatchByDate(this.dateAndName).subscribe((res: Schedule[]) => {
-      this.matches = res;
-    });
+    this.subscription.add(
+      this.matchService.getMatchByDate(this.dateAndName).subscribe((res: Schedule[]) => {
+        this.matches = res;
+      })
+    );
   }
 
   deleteMatches() {
-    this.matchService.deleteAllMatches().subscribe(
-      () => {
-        this.alert.success('DONE!');
-        this.ngOnInit();
-      },
-      (error) => {
-        this.alert.error(error);
-      }
+    this.subscription.add(
+      this.matchService.deleteAllMatches().subscribe(
+        () => {
+          this.alert.success('DONE!');
+          this.ngOnInit();
+        },
+        (error) => {
+          this.alert.error(error);
+        }
+      )
     );
   }
 

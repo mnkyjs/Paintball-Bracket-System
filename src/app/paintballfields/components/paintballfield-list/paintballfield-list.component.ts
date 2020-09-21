@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { Field } from '../../core/classes/field';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -9,20 +9,24 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-paintballfield-list',
   templateUrl: './paintballfield-list.component.html',
   styleUrls: ['./paintballfield-list.component.scss'],
 })
-export class PaintballfieldListComponent implements OnInit {
-  displayedColumns = ['name', 'action'];
-  dataSource: MatTableDataSource<Field>;
-  selection: SelectionModel<Field>;
-  isLinear = true;
-  fields: Field[] = [];
-  field: Field;
-  showDetails = false;
+export class PaintballfieldListComponent implements OnInit, OnDestroy {
+  // Observable workflow fix
+  public subscription: Subscription = new Subscription();
+
+  public displayedColumns = ['name', 'action'];
+  public dataSource: MatTableDataSource<Field>;
+  public selection: SelectionModel<Field>;
+  public isLinear = true;
+  public fields: Field[] = [];
+  public field: Field;
+  public showDetails = false;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
@@ -32,20 +36,26 @@ export class PaintballfieldListComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.refresh();
   }
 
   refresh() {
-    this.fieldService.getField().subscribe(
-      (fields: Field[]) => {
-        this.fields = fields;
-        this.dataSource = new MatTableDataSource<Field>(this.fields);
-        this.dataSource.paginator = this.paginator;
-      },
-      (error) => {
-        this.alert.error(error);
-      }
+    this.subscription.add(
+      this.fieldService.getField().subscribe(
+        (fields: Field[]) => {
+          this.fields = fields;
+          this.dataSource = new MatTableDataSource<Field>(this.fields);
+          this.dataSource.paginator = this.paginator;
+        },
+        (error) => {
+          this.alert.error(error);
+        }
+      )
     );
   }
 
@@ -60,40 +70,43 @@ export class PaintballfieldListComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(PaintballfieldViewComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.field = result;
-      this.ngOnInit();
-    });
+    this.subscription.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        this.field = result;
+        this.ngOnInit();
+      })
+    );
   }
 
   onEdit(rowId, row) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
     this.field = this.findField(rowId);
     dialogConfig.data = {
       field: this.field,
       showDetails: this.showDetails,
     };
     const dialogRef = this.dialog.open(PaintballfieldViewComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      this.field = result;
-      this.ngOnInit();
-    });
+    this.subscription.add(
+      dialogRef.afterClosed().subscribe((result) => {
+        this.field = result;
+        this.ngOnInit();
+      })
+    );
   }
 
   onDelete(id: number) {
-    this.fieldService.deleteField(id).subscribe(
-      () => {
-        this.alert.success('delete successful');
-        this.ngOnInit();
-      },
-      (error) => {
-        this.alert.error(error);
-      }
+    this.subscription.add(
+      this.fieldService.deleteField(id).subscribe(
+        () => {
+          this.alert.success('delete successful');
+          this.ngOnInit();
+        },
+        (error) => {
+          this.alert.error(error);
+        }
+      )
     );
   }
   doFilter(value: string) {
@@ -114,12 +127,13 @@ export class PaintballfieldListComponent implements OnInit {
       };
 
       const dialogRef = this.dialog.open(PaintballfieldViewComponent, dialogConfig);
-
-      dialogRef.afterClosed().subscribe((result) => {
-        this.field = result;
-        this.showDetails = false;
-        this.ngOnInit();
-      });
+      this.subscription.add(
+        dialogRef.afterClosed().subscribe((result) => {
+          this.field = result;
+          this.showDetails = false;
+          this.ngOnInit();
+        })
+      );
     } else {
       this.showDetails = false;
     }

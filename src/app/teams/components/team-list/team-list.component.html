@@ -27,7 +27,7 @@
       />
       <ngx-datatable
         #table
-        style="width: 100%; height: 50%; cursor: pointer"
+        style="width: 100%; cursor: pointer"
         class="material"
         [columnMode]="'force'"
         [rows]="teams"
@@ -51,6 +51,14 @@
           [headerCheckboxable]="true"
           [checkboxable]="true"
         >
+          <ng-template
+            ngx-datatable-header-template
+            let-value="value"
+            let-allRowsSelected="allRowsSelected"
+            let-selectFn="selectFn"
+          >
+            <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
+          </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Name">
           <ng-template let-value="value" ngx-datatable-cell-template>

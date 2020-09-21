@@ -7,7 +7,6 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "format:check": "prettier --list-different \"src/**/*.{ts,js,json,scss,css,html}\"",
     "format:write": "prettier --write \"src/**/*.{ts,js,json,scss,css,html}\"",
     "build-bracketSystem": "ng build --configuration=production --aot --buildOptimizer --extractCss --extractLicenses --no-namedChunks --optimization --outputHashing=all --no-sourceMap --no-vendorChunk"
@@ -62,6 +61,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.6.2",
     "tslint": "~6.1.0",
-    "typescript": "~3.9.7"
+    "typescript": "^3.9.7"
   }
 }

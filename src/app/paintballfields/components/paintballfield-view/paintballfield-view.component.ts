@@ -1,17 +1,20 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FieldLocation } from 'src/app/locations/core/classes/fieldLocation';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FieldService } from '../../services/field.service';
 import { LocationService } from 'src/app/locations/services/location.service';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-paintballfield-view',
   templateUrl: './paintballfield-view.component.html',
   styleUrls: ['./paintballfield-view.component.scss'],
 })
-export class PaintballfieldViewComponent implements OnInit {
+export class PaintballfieldViewComponent implements OnInit, OnDestroy {
+  // Observable workflow fix
+  public subscription: Subscription = new Subscription();
   locations: FieldLocation[] = [];
   fieldForm: FormGroup;
 
@@ -24,16 +27,21 @@ export class PaintballfieldViewComponent implements OnInit {
     private alert: AlertService,
     private locationService: LocationService
   ) {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe((res) => {
-      this.locations = res;
-      if (this.data.field.locationId !== undefined) {
-        this.tempLocation = this.findLocation(this.data.field.locationId);
-      } else {
-        this.tempLocation = this.findLocation(3);
-      }
-    });
+    this.subscription.add(
+      this.locationService.getLocation().subscribe((res) => {
+        this.locations = res;
+        if (this.data.field.locationId !== undefined) {
+          this.tempLocation = this.findLocation(this.data.field.locationId);
+        } else {
+          this.tempLocation = this.findLocation(3);
+        }
+      })
+    );
 
     this.fieldForm = new FormGroup({
       id: new FormControl(this.data.field.id, []),
@@ -57,23 +65,27 @@ export class PaintballfieldViewComponent implements OnInit {
   create() {
     if (this.fieldForm.valid) {
       if (!this.fieldForm.get('id').value) {
-        this.fieldService.postField(this.fieldForm.value).subscribe(
-          (res) => {
-            this.alert.success(`Feld ${res.name} wurde erstellt`);
-          },
-          (error) => {
-            this.alert.error(error);
-          }
+        this.subscription.add(
+          this.fieldService.postField(this.fieldForm.value).subscribe(
+            (res) => {
+              this.alert.success(`Feld ${res.name} wurde erstellt`);
+            },
+            (error) => {
+              this.alert.error(error);
+            }
+          )
         );
         this.fieldForm.reset();
       } else {
-        this.fieldService.putfield(this.fieldForm.value).subscribe(
-          (res) => {
-            this.alert.success(`Feld ${res.name} wurde bearbeitet`);
-          },
-          (error) => {
-            this.alert.error(error);
-          }
+        this.subscription.add(
+          this.fieldService.putfield(this.fieldForm.value).subscribe(
+            (res) => {
+              this.alert.success(`Feld ${res.name} wurde bearbeitet`);
+            },
+            (error) => {
+              this.alert.error(error);
+            }
+          )
         );
       }
     }
