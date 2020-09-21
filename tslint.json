@@ -1,5 +1,8 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [
+    "tslint:recommended",
+    "tslint-angular"
+  ],
   "rules": {
     "align": {
       "options": [
@@ -130,8 +133,8 @@
       ]
     },
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
-  ,    "variable-name": {
+    "use-pipe-transform-interface": true,
+    "variable-name": {
       "options": [
         "ban-keywords",
         "check-format",
@@ -148,7 +151,7 @@
         "check-typecast"
       ]
     }
-},
+  },
   "rulesDirectory": [
     "codelyzer"
   ]
