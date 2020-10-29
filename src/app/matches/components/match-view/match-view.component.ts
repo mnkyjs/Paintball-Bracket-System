@@ -54,13 +54,6 @@ export class MatchViewComponent implements OnInit, OnChanges {
   public splitMatches() {
     this.splitArrayForLeftSide = this.matches.slice(0, this.matches.length / 2);
     this.splitArrayForRightSide = this.matches.slice(this.matches.length / 2, this.matches.length);
-
-    for (const item of this.splitArrayForLeftSide) {
-      console.log(` Array left ${item[0].name} vs ${item[1].name}`);
-    }
-    for (const item of this.splitArrayForRightSide) {
-      console.log(` Array right ${item[0].name} vs ${item[1].name}`);
-    }
   }
 
   pushTempMatches() {
