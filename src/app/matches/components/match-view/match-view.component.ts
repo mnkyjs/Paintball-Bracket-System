@@ -5,7 +5,7 @@ import { Input } from '@angular/core';
 import { Schedule } from '../../core/classes/Schedule';
 import { OnChanges } from '@angular/core';
 import { AuthUser } from 'src/app/users/core/classes/user';
-import * as jspdf from 'jspdf';
+import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({

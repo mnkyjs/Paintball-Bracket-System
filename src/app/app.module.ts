@@ -68,8 +68,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        whitelistedDomains: [`${environment.apiFix}`],
-        blacklistedRoutes: [`${environment.apiFix}/api/auth`],
+        allowedDomains: [`${environment.apiFix}`],
+        disallowedRoutes: [`${environment.apiFix}/api/auth`],
       },
     }),
     PDFExportModule,

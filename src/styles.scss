@@ -5,7 +5,7 @@
 @use 'app/style/bracket-theme.scss';
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~bootstrap/dist/css/bootstrap-reboot.min.css';
-@import 'app/style/variables.scss';
+@import './app/style/variables';
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/material.scss';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
