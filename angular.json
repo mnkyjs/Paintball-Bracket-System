@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["lodash"],
             "outputPath": "D:\\Dennis\\Development\\Projects\\ClashPlaner\\il-y.BracketSystem.API\\il@y.BracketSystem.Web\\wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
