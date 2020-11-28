@@ -6,6 +6,7 @@ import { Schedule } from '../../core/classes/Schedule';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { NameAndDate } from 'src/app/paintballfields/core/classes/nameAndDate';
 import { Subscription } from 'rxjs';
+import { Matches } from '../../core/classes/matches';
 
 @Component({
   selector: 'app-match-list',
@@ -18,7 +19,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
 
   paintballfields: Field[];
   paintballfield: Field;
-  matches: Schedule[] = [];
+  matches: Matches[] = [];
   dateAndName: NameAndDate;
   currentDate: Date;
   showSidebar = true;
@@ -42,13 +43,13 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.dateAndName = new NameAndDate();
     this.dateAndName.date = getDate;
     this.dateAndName.name = getName;
-    console.time('get matches took')
+    console.time('get matches took');
     this.subscription.add(
-      this.matchService.getMatchByDate(this.dateAndName).subscribe((res: Schedule[]) => {
+      this.matchService.getMatchByDate(this.dateAndName).subscribe((res: Matches[]) => {
         this.matches = res;
       })
     );
-    console.timeEnd('get matches took')
+    console.timeEnd('get matches took');
   }
 
   deleteMatches() {

@@ -6,7 +6,6 @@ import { MatchListComponent } from './components/match-list/match-list.component
 import { MatchViewComponent } from './components/match-view/match-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -29,6 +28,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [MatchListComponent, MatchViewComponent],
@@ -60,7 +60,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatGridListModule,
     MatListModule,
     MatExpansionModule,
-    PDFExportModule,
+    NgxDatatableModule,
   ],
 })
 export class MatchesModule {}

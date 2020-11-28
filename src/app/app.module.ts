@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './shared/core/classes/error.interceptor';
 import { API_URL } from './shared/core/classes/tokens';
 import { ApiUrlInterceptor } from './shared/core/classes/api-url.interceptor';
-import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { SharedModule } from './shared/shared.module';
 import { SidenavListComponent } from './navigation/components/sidenav-list/sidenav-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -72,7 +71,6 @@ export function tokenGetter() {
         disallowedRoutes: [`${environment.apiFix}/api/auth`],
       },
     }),
-    PDFExportModule,
     NgbModule,
   ],
   providers: [
@@ -92,11 +90,6 @@ export function tokenGetter() {
       useClass: ErrorInterceptor,
       multi: true,
     },
-    // {
-    //     provide: DateAdapter,
-    //     useClass: MomentDateAdapter,
-    //     deps: [MAT_DATE_LOCALE],
-    // },
 
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Team } from 'src/app/teams/core/classes/team';
-import { environment } from 'src/environments/environment';
+import { Matches } from '../core/classes/matches';
 import { Schedule } from '../core/classes/Schedule';
 import { Observable } from 'rxjs';
 import { NameAndDate } from 'src/app/paintballfields/core/classes/nameAndDate';
@@ -21,8 +20,8 @@ export class ScheduleService {
     return this.http.get(url);
   }
 
-  getMatchByDate(nameDate: NameAndDate) {
-    return this.http.get(`${this.apiEndpoint}/${nameDate.date}/${nameDate.name}`);
+  getMatchByDate(nameDate: NameAndDate): Observable<Matches[]> {
+    return this.http.get<Matches[]>(`${this.apiEndpoint}/${nameDate.date}/${nameDate.name}`);
   }
 
   getMatches() {
