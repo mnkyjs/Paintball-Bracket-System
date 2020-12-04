@@ -29,6 +29,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ExportAsModule } from 'ngx-export-as/lib/export-as.module';
 
 @NgModule({
   declarations: [MatchListComponent, MatchViewComponent],
@@ -61,6 +62,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatListModule,
     MatExpansionModule,
     NgxDatatableModule,
+    ExportAsModule,
   ],
 })
 export class MatchesModule {}

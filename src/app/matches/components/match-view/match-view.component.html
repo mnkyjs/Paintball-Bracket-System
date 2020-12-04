@@ -7,42 +7,70 @@
 >
   Download als PDF
 </button> -->
-<ng-container *ngIf="this.matches.length > 0">
-  <ngx-datatable
-    class="material"
-    [rows]="this.matches"
-    [groupRowsBy]="'blockNumber'"
-    [columnMode]="'flex'"
-    rowHeight="auto"
-    [groupExpansionDefault]="true"
-  >
-    <!-- Group Header Template -->
-    <ngx-datatable-group-header [rowHeight]="50" #myGroupHeader>
-      <ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
-        <div style="padding-left: 5px">
-          <a
-            [class.datatable-icon-right]="!expanded"
-            [class.datatable-icon-down]="expanded"
-            title="Expand/Collapse Group"
-          >
-            <b>Block: {{ group.value[0].blockNumber }}</b>
-          </a>
-        </div>
-      </ng-template>
-    </ngx-datatable-group-header>
 
-    <ngx-datatable-column name="Games" prop="games">
-      <ng-template
-        ngx-datatable-cell-template
-        let-rowIndex="rowIndex"
-        let-value="value"
-        let-row="row"
-        let-group="group"
-      >
-        {{ value[0] }}
-        <br />
-        {{ value[1] }}
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>
-</ng-container>
+<div>
+  <ng-container *ngIf="this.matches.length > 0">
+    <ngx-datatable
+      #matchTable
+      class="material fullscreen expandable"
+      [rows]="this.matches"
+      [columns]="[{ name: 'Games' }, { name: 'Score' }]"
+      [groupRowsBy]="'blockNumber'"
+      [columnMode]="'force'"
+      [loadingIndicator]="!this.matches"
+      [groupExpansionDefault]="true"
+      rowHeight="auto"
+      [footerHeight]="50"
+      [limit]="10"
+    >
+      <!-- Group Header Template -->
+      <ngx-datatable-group-header #blockGroupHeader>
+        <ng-template let-group="group" let-expanded="expanded" ngx-datatable-group-header-template>
+          <div style="padding-left: 5px">
+            <a
+              [class.datatable-icon-right]="!expanded"
+              [class.datatable-icon-down]="expanded"
+              title="Expand/Collapse Group"
+              (click)="toggleExpandGroup(group)"
+              style="cursor: pointer"
+            >
+              <b>Block: {{ group.value[0].blockNumber }}</b>
+            </a>
+          </div>
+        </ng-template>
+      </ngx-datatable-group-header>
+
+      <ngx-datatable-column id="games" [minWidth]="350" [sortable]="false" name="Games" prop="games" [flexGrow]="3">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <div class="teams">
+            <p>{{ value[0] | titlecase }}</p>
+            <br />
+            <p>{{ value[1] | titlecase }}</p>
+          </div>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column [sortable]="false" name="Score" [flexGrow]="1">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <span class="mobile-hidden">Score</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <span class="mobile-hidden">
+            <div class="score">
+              <div class="square"></div>
+              <p class="selected">zu</p>
+              <div class="square"></div>
+            </div>
+          </span>
+          <br />
+          <span class="mobile-hidden">
+            <div class="score">
+              <div class="square"></div>
+              <p class="selected">zu</p>
+              <div class="square"></div></div
+          ></span>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ng-container>
+</div>

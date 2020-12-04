@@ -43,13 +43,11 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.dateAndName = new NameAndDate();
     this.dateAndName.date = getDate;
     this.dateAndName.name = getName;
-    console.time('get matches took');
     this.subscription.add(
       this.matchService.getMatchByDate(this.dateAndName).subscribe((res: Matches[]) => {
         this.matches = res;
       })
     );
-    console.timeEnd('get matches took');
   }
 
   deleteMatches() {
