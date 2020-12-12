@@ -1,41 +1,25 @@
-:host ::ng-deep .ngx-datatable .datatable-body .datatable-scroll {
-  display: inherit;
+// #matchCard {
+//   max-width: 600px;
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+//   margin-bottom: 25px;
+//   vertical-align: middle;
+// }
+
+#matchListItem {
+  vertical-align: middle;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#deleteMatchesBtn {
+  margin: 10px;
 }
 
-ngx-datatable {
-  margin: 15px;
-  max-width: 500px;
-}
-
-.score {
-  display: flex;
-}
-.teams {
-  display: flex;
-  flex-direction: column;
-}
-.square {
-  margin: 5px;
-  height: 25px;
-  width: 25px;
-  border: 1px solid grey;
-}
-
-.score .selected {
-  align-self: center;
-  margin-top: 6px;
-}
-
-@media screen and (max-width: 800px) {
-  #games {
-    width: 100%;
-  }
-  .mobile-hidden {
-    display: none;
-  }
-}
-@media screen and (min-width: 800px) {
-  .mobile-hidden {
-    display: initial;
-  }
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
