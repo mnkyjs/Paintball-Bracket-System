@@ -18,7 +18,9 @@ export class LayoutComponent implements OnInit {
 	constructor(private _breakpointObserver: BreakpointObserver, private _authService: AuthService) {}
 
 	ngOnInit(): void {
-		this.currentUser = this._authService.getTokenInfo();
+	  if (this._authService.getTokenInfo() !== ''){
+      this.currentUser = this._authService.getTokenInfo();
+    }
 	}
 
 	isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset).pipe(

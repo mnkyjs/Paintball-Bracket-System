@@ -28,10 +28,10 @@ export class MatchListComponent implements OnInit {
 		this.disableDateSelect = false;
 	}
 
-	onDateChange(item: KeyPairValueDto) {
-		if (item.date && item.name) {
+	onDateChange(guid: string) {
+		if (guid) {
 			this.isLoading = true;
-			this._planerService.getMatchesByDate(new Date(item.date), item.name).subscribe((res: BlockDto[]) => {
+			this._planerService.getMatchesByGuid(guid).subscribe((res: BlockDto[]) => {
 				this.blocks = res;
 				this.isLoading = false;
 			});

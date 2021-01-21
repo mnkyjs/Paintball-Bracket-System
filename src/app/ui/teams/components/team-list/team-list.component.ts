@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CreateScheduleDto, FieldDto, PlanerService, Team, TeamDto } from '../../../../api/services/planer-api.service';
 import { TeamViewComponent } from '../team-view/team-view.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { DatatableComponent, SelectionType } from '@swimlane/ngx-datatable';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AlertService } from '../../../../shared/services/alert.service';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -21,6 +21,7 @@ export class TeamListComponent implements OnInit {
 	team!: TeamDto;
 	selected = [];
 	temp = [];
+	selectionType = SelectionType;
 
 	scheduleToCreate: CreateScheduleDto = {} as CreateScheduleDto;
 

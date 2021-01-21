@@ -1,10 +1,8 @@
-<div class="mat-elevation-z8"></div>
-
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
 	<mat-step [stepControl]="firstFormGroup">
 		<form [formGroup]="firstFormGroup">
 			<ng-template matStepLabel>Wähle deine Teams aus</ng-template>
-			<div fxLayout fxLayoutAlign="center center">
+			<div>
 				<button
 					style="margin: 10px 0 10px 0"
 					mat-stroked-button
@@ -36,7 +34,7 @@
 				rowHeight="auto"
 				[limit]="7"
 				[selected]="selected"
-				[selectionType]="'multiClick'"
+				[selectionType]="selectionType.multiClick"
 				[selectAllRowsOnPage]="false"
 				[displayCheck]="displayCheck"
 				(activate)="onActivate($event)"
@@ -111,17 +109,19 @@
 				<mat-label>Anzeigename</mat-label>
 				<input matInput maxlength="20" placeholder="Trage Titel für den Clash ein" formControlName="fourthCtrl" />
 			</mat-form-field>
-			<mat-checkbox
-				style="margin: 0 10px"
-				[checked]="scheduleToCreate.addClashToAnExistingOne"
-				(change)="scheduleToCreate.addClashToAnExistingOne = !scheduleToCreate.addClashToAnExistingOne"
-			>
-				Hast du bereits ein Spielplan für diesen Tag erstellt?
-			</mat-checkbox>
-			<p>
-				Besteht für den Tag bereits ein Spielplan, dann wähle die Checkbox aus. Sonst wird / werden die bereits
-				erstellten Pläne gelöscht!
-			</p>
+			<ng-container *ngIf="scheduleToCreate.addClashToAnExistingOne !== undefined">
+				<mat-checkbox
+					style="margin: 0 10px"
+					[checked]="scheduleToCreate.addClashToAnExistingOne"
+					(change)="scheduleToCreate.addClashToAnExistingOne = !scheduleToCreate.addClashToAnExistingOne"
+				>
+					Hast du bereits ein Spielplan für diesen Tag erstellt?
+				</mat-checkbox>
+				<p>
+					Besteht für den Tag bereits ein Spielplan, dann wähle die Checkbox aus. Sonst wird / werden die bereits
+					erstellten Pläne gelöscht!
+				</p>
+			</ng-container>
 
 			<div class="button-row">
 				<button mat-stroked-button class="primary-color" matStepperPrevious>Zurück</button>
