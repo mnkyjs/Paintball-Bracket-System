@@ -1,0 +1,5 @@
+@use 'variables';
+
+:host ::ng-deep .datatable-body-row.active .datatable-row-group {
+	background-color: variables.$accent !important;
+}

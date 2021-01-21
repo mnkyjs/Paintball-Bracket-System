@@ -1,0 +1,62 @@
+<div class="login-wrapper">
+	<div class="container">
+		<mat-card>
+			<mat-card-title>Register</mat-card-title>
+			<mat-card-content>
+				<form [formGroup]="registerForm" (ngSubmit)="register()">
+					<p>
+						<mat-form-field appearance="outline">
+							<mat-label>Username</mat-label>
+							<input id="login-username" matInput placeholder="Username" formControlName="username" />
+							<mat-icon matSuffix>assignment_ind</mat-icon>
+						</mat-form-field>
+					</p>
+
+					<p>
+						<mat-form-field appearance="outline">
+							<mat-label>Password</mat-label>
+							<input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" />
+							<button
+								mat-icon-button
+								matSuffix
+								(click)="hide = !hide"
+								[attr.aria-label]="'Hide password'"
+								[attr.aria-pressed]="hide"
+							>
+								<mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+							</button>
+						</mat-form-field>
+					</p>
+
+					<div class="button__group">
+						<button type="submit" mat-raised-button color="primary" [disabled]="registerForm.invalid">Log in</button>
+						<button routerLink="/" mat-raised-button color="accent">Cancel</button>
+					</div>
+				</form>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>
+
+<div>
+	<mat-card class="example-card">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>Benutzerdaten</mat-card-title>
+			<mat-card-subtitle>Was wird von mir gespeichert?!</mat-card-subtitle>
+		</mat-card-header>
+
+		<mat-card-content>
+			<p>
+				Kurz und knapp NICHTS. Aktuell werden keine persönlichen Daten wie Name, Geburtsdatum, Adresse oder e-Mail
+				Adresse gespeichert. Einfach weil ich keine Lust auf irgendwelchen Ärger seitens DSGVO haben möchte.
+			</p>
+			<p>
+				Die Registrierung ist freiwillig und es werden nur der Nickname - welcher ein erfundender Name sein kann -
+				gespeichert. Das Passwort wird per Cryptography HMACSHA512 verschlüsselt, so dass es für niemanden (auch mich
+				nicht!) einsehbar ist. Sprich habt ihr euer Passwort vergessen, ist es aktuell nicht möglich dieses
+				zurückzusetzen!!!
+			</p>
+		</mat-card-content>
+	</mat-card>
+</div>

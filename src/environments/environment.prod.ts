@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  apiUrl: '/api',
-  apiFix: '0.0.0.0:5000',
+	production: true,
+	apiUrl: 'https://clashplaner.uk.to',
+	apiFix: '0.0.0.0:6025',
 };
