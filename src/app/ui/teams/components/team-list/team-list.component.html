@@ -17,13 +17,15 @@
 			<div style="margin-bottom: 10px">
 				<button mat-stroked-button color="primary" class="hover-color" matStepperNext>Weiter</button>
 			</div>
-			<input
-				type="text"
-				style="padding: 8px; margin: 15px auto; width: 30%"
-				placeholder="Team suchen..."
-				(keyup)="updateFilter($event)"
-			/>
-			<ngx-datatable
+      <label>
+        <input
+          type="text"
+          style="padding: 8px; margin: 15px auto; width: 30%"
+          placeholder="Team suchen..."
+          (keyup)="updateFilter($event)"
+        />
+      </label>
+      <ngx-datatable
 				#table
 				style="width: 100%; cursor: pointer"
 				class="material"
@@ -37,7 +39,7 @@
 				[selectionType]="selectionType.multiClick"
 				[selectAllRowsOnPage]="false"
 				[displayCheck]="displayCheck"
-				(activate)="onActivate($event)"
+				(activate)="onActivate()"
 				(select)="onSelect($event)"
 			>
 				<ngx-datatable-column
@@ -55,8 +57,10 @@
 						let-allRowsSelected="allRowsSelected"
 						let-selectFn="selectFn"
 					>
-						<input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
-					</ng-template>
+            <label>
+              <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
+            </label>
+          </ng-template>
 				</ngx-datatable-column>
 				<ngx-datatable-column name="Name">
 					<ng-template let-value="value" ngx-datatable-cell-template>
@@ -81,15 +85,17 @@
 		<form [formGroup]="secondFormGroup">
 			<ng-template matStepLabel>Wähle ein Datum und Ort</ng-template>
 			<mat-form-field>
-				<input matInput [matDatepicker]="picker" placeholder="Wähle ein Datum" formControlName="secondCtrl" />
-				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <label>
+          <input matInput [matDatepicker]="picker" placeholder="Wähle ein Datum" formControlName="secondCtrl" />
+        </label>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
 			<br />
 			<mat-form-field>
 				<mat-label>Paintballfeld</mat-label>
 				<mat-select formControlName="thirdCtrl" required>
-					<mat-option *ngFor="let field of paintballfield; trackBy: trackByFn" [value]="field?.id">
+					<mat-option *ngFor="let field of fieldDtos; trackBy: trackByFn" [value]="field?.id">
 						{{ field?.name | titlecase }}
 					</mat-option>
 				</mat-select>
@@ -107,8 +113,10 @@
 
 			<mat-form-field>
 				<mat-label>Anzeigename</mat-label>
-				<input matInput maxlength="20" placeholder="Trage Titel für den Clash ein" formControlName="fourthCtrl" />
-			</mat-form-field>
+        <label>
+          <input matInput maxlength="20" placeholder="Trage ein Titel für den Clash ein" formControlName="fourthCtrl" />
+        </label>
+      </mat-form-field>
 			<ng-container *ngIf="scheduleToCreate.addClashToAnExistingOne !== undefined">
 				<mat-checkbox
 					style="margin: 0 10px"
@@ -125,7 +133,7 @@
 
 			<div class="button-row">
 				<button mat-stroked-button class="primary-color" matStepperPrevious>Zurück</button>
-				<button mat-stroked-button color="warn" class="hover-color" (click)="stepper.reset(); this.selected = []">
+				<button mat-stroked-button color="warn" class="hover-color" (click)="stepper.reset(); onReset()">
 					Reset
 				</button>
 				<button
@@ -134,7 +142,7 @@
 					class="hover-color"
 					color="accent"
 					type="submit"
-					(click)="postSchedule(); stepper.reset(); this.selected = []"
+					(click)="postSchedule(); stepper.reset(); this.selected.length = 0;"
 				>
 					Erstellen
 				</button>
