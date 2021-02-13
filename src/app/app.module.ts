@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { httpInterceptors } from './shared/interceptors/httpInterceptors';
 import { SharedModule } from './shared/shared.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const modules = [
   BrowserModule,
@@ -34,7 +35,7 @@ export function tokenGetter(): string | null {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [...modules],
+  imports: [...modules, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [...httpInterceptors, { provide: API_BASE_URL, useValue: environment.apiUrl }],
   bootstrap: [AppComponent]
 })
