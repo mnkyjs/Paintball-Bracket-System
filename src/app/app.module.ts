@@ -13,29 +13,30 @@ import { httpInterceptors } from './shared/interceptors/httpInterceptors';
 import { SharedModule } from './shared/shared.module';
 
 const modules = [
-	BrowserModule,
-	BrowserAnimationsModule,
-	HttpClientModule,
-	AppRoutingModule,
-	ApiModule,
-	SharedModule.forRoot(),
-	JwtModule.forRoot({
-		config: {
-			tokenGetter,
-			allowedDomains: [`${environment.apiFix}`],
-			disallowedRoutes: [`${environment.apiFix}/api/auth`],
-		},
-	}),
+  BrowserModule,
+  BrowserAnimationsModule,
+  HttpClientModule,
+  AppRoutingModule,
+  ApiModule,
+  SharedModule.forRoot(),
+  JwtModule.forRoot({
+    config: {
+      tokenGetter,
+      allowedDomains: [`${environment.apiFix}`],
+      disallowedRoutes: [`${environment.apiFix}/api/auth`]
+    }
+  })
 ];
 
-export function tokenGetter() {
-	return localStorage.getItem('token');
+export function tokenGetter(): string | null {
+  return localStorage.getItem('token');
 }
 
 @NgModule({
-	declarations: [AppComponent],
-	imports: [...modules, BrowserAnimationsModule],
-	providers: [...httpInterceptors, { provide: API_BASE_URL, useValue: environment.apiUrl }],
-	bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [...modules],
+  providers: [...httpInterceptors, { provide: API_BASE_URL, useValue: environment.apiUrl }],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

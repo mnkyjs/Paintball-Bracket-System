@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -31,40 +30,41 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
 
 const modules = [
-	CommonModule,
-	MatFormFieldModule,
-	MatButtonModule,
-	MatInputModule,
-	MatCardModule,
-	MatTableModule,
-	MatDialogModule,
-	MatCheckboxModule,
-	MatToolbarModule,
-	MatDividerModule,
-	MatSelectModule,
-	MatDatepickerModule,
-	MatNativeDateModule,
-	MatSnackBarModule,
-	MatSidenavModule,
-	MatIconModule,
-	MatListModule,
-	MatTooltipModule,
-	MatMenuModule,
-	MatProgressSpinnerModule,
-	MatExpansionModule,
-	MatAutocompleteModule,
-	MatChipsModule,
-	MatSortModule,
-	MatPaginatorModule,
-	MatGridListModule,
-	MatStepperModule,
-	MatTabsModule,
-	MatBadgeModule,
+  CommonModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule,
+  MatCardModule,
+  MatTableModule,
+  MatDialogModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatDividerModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSnackBarModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatTooltipModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatExpansionModule,
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatGridListModule,
+  MatStepperModule,
+  MatTabsModule,
+  MatBadgeModule
 ];
 
 @NgModule({
-	declarations: [],
-	imports: [...modules],
-	exports: [...modules],
+  declarations: [],
+  imports: [...modules],
+  exports: [...modules]
 })
-export class MaterialModule {}
+export class MaterialModule {
+}

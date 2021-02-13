@@ -1,0 +1,45 @@
+<div class='login-wrapper'>
+  <div class='container'>
+    <mat-card>
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <form (ngSubmit)='login()' [formGroup]='loginForm'>
+          <p>
+            <mat-form-field appearance='outline'>
+              <mat-label>Username</mat-label>
+              <input formControlName='username' id='login-username' matInput placeholder='Username' />
+              <mat-icon matSuffix>assignment_ind</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance='outline'>
+              <mat-label>Password</mat-label>
+              <input [type]="hide ? 'password' : 'text'" formControlName='password' matInput placeholder='Password' />
+              <button
+                (click)='hide = !hide'
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]='hide'
+                mat-icon-button
+                matSuffix
+              >
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+          </p>
+
+          <div class='button__group'>
+            <button [disabled]='loginForm.invalid' color='primary' mat-raised-button type='submit'>Log in</button>
+            <!--            <button
+              routerLink="/auth/register"
+              mat-raised-button
+              color="accent"
+            >
+              Sign up
+            </button>-->
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

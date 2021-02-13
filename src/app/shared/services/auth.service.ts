@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 import { PlanerService, UserForLoginDto, UserForRegisterDto } from '../../api/services/planer-api.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   jwtHelper = new JwtHelperService();
@@ -12,19 +13,26 @@ export class AuthService {
   constructor(private apiService: PlanerService) {
   }
 
-  login(model: UserForLoginDto) {
+  private static getToken(): string {
+    const token = localStorage.getItem('token');
+    return token ? token : '';
+  }
+
+  login(model: UserForLoginDto): Observable<void> {
     return this.apiService.login(model).pipe(
-      map((model) => {
-        if (model.token) localStorage.setItem('token', model.token);
+      map((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+        }
       })
     );
   }
 
-  register(model: UserForRegisterDto) {
+  register(model: UserForRegisterDto): Observable<void> {
     return this.apiService.register(model).pipe(
-      map((model) => {
-        if (model.token) {
-          localStorage.setItem('token', model.token);
+      map((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
         }
       })
     );
@@ -53,19 +61,16 @@ export class AuthService {
     return isMatch;
   }
 
-  getTokenInfo() {
-    const decToken = this.jwtHelper.decodeToken(AuthService.getToken())
+  getTokenInfo(): any {
+    const decToken = this.jwtHelper.decodeToken(AuthService.getToken());
     return decToken ? decToken : '';
   }
 
-  loggedIn() {
+  loggedIn(): boolean {
     const token = localStorage.getItem('token');
-    if (token) return !this.jwtHelper.isTokenExpired(token);
+    if (token) {
+      return !this.jwtHelper.isTokenExpired(token);
+    }
     return false;
-  }
-
-  private static getToken(): string {
-    const token = localStorage.getItem('token');
-    return token ? token : '';
   }
 }

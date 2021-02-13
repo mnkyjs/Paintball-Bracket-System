@@ -16,13 +16,13 @@ $bracket-app-warn: mat-palette($mat-red);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as `color` or `typography`.
 $bracket-app-theme: mat-light-theme(
-	(
-		color: (
-			primary: $bracket-app-primary,
-			accent: $bracket-app-accent,
-			warn: $bracket-app-warn,
-		),
-	)
+    (
+      color: (
+        primary: $bracket-app-primary,
+        accent: $bracket-app-accent,
+        warn: $bracket-app-warn,
+      ),
+    )
 );
 
 // Include theme styles for core and each component used in your app.

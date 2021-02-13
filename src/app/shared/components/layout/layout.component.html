@@ -1,92 +1,92 @@
-<mat-sidenav-container class="all-wrap">
-	<mat-sidenav
-		#drawer
-		class="sidenav elevation-3"
-		fixedInViewport
-		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-		[mode]="(isHandset$ | async) ? 'over' : 'side'"
-		[opened]="(isHandset$ | async) === false"
-	>
-		<mat-toolbar class="brand-link"
-			><a id="brand" routerLink="/">
-				<mat-icon inline="true">bubble_chart</mat-icon>
-				<span>Clash-Planer</span></a
-			></mat-toolbar
-		>
-		<!-- Sidebar -->
-		<!-- Sidebar Menu -->
-		<mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					<p style="color: #fff; margin: 0 0 0 5px">Menu</p>
-				</mat-panel-title>
-			</mat-expansion-panel-header>
-			<mat-nav-list>
-				<ul>
-					<li>
-						<a class="nav__link" mat-stroked-button color="accent" routerLink="/matches">
-							<mat-icon inline="true">format_align_center</mat-icon>
-							<span style="padding-left: 4px">Spielpläne</span></a
-						>
-						<a class="nav__link" mat-stroked-button color="accent" routerLink="/fields">
-							<mat-icon inline="true">my_location</mat-icon>
-							<span style="padding-left: 4px">Paintballfelder</span></a
-						>
-					</li>
-					<li>
-						<a class="nav__link" mat-stroked-button color="accent" routerLink="/teams">
-							<mat-icon inline="true">group</mat-icon>
-							<span style="padding-left: 4px">Spielplan erstellen</span></a
-						>
-					</li>
-					<li>
-						<a class="nav__link" mat-stroked-button color="accent" routerLink="/faq">
-							<mat-icon inline="true">help</mat-icon>
-							<span style="padding-left: 4px">Hilfe</span></a
-						>
-					</li>
-					<li>
-						<a class="nav__link" mat-stroked-button color="accent" *appHasRole="['RootAdmin']" routerLink="/admin">
-							<mat-icon inline="true">security</mat-icon>
-							<span style="padding-left: 4px">Nutzer</span></a
-						>
-					</li>
-				</ul>
-			</mat-nav-list>
+<mat-sidenav-container class='all-wrap'>
+  <mat-sidenav
+    #drawer
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]='(isHandset$ | async) === false'
+    class='sidenav elevation-3'
+    fixedInViewport
+  >
+    <mat-toolbar class='brand-link'
+    ><a id='brand' routerLink='/'>
+      <mat-icon inline='true'>bubble_chart</mat-icon>
+      <span>Clash-Planer</span></a
+    ></mat-toolbar
+    >
+    <!-- Sidebar -->
+    <!-- Sidebar Menu -->
+    <mat-expansion-panel (closed)='panelOpenState = false' (opened)='panelOpenState = true' [expanded]='true'>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p style='color: #fff; margin: 0 0 0 5px'>Menu</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <ul>
+          <li>
+            <a class='nav__link' color='accent' mat-stroked-button routerLink='/matches'>
+              <mat-icon inline='true'>format_align_center</mat-icon>
+              <span style='padding-left: 4px'>Spielpläne</span></a
+            >
+            <a class='nav__link' color='accent' mat-stroked-button routerLink='/fields'>
+              <mat-icon inline='true'>my_location</mat-icon>
+              <span style='padding-left: 4px'>Paintballfelder</span></a
+            >
+          </li>
+          <li>
+            <a class='nav__link' color='accent' mat-stroked-button routerLink='/teams'>
+              <mat-icon inline='true'>group</mat-icon>
+              <span style='padding-left: 4px'>Spielplan erstellen</span></a
+            >
+          </li>
+          <li>
+            <a class='nav__link' color='accent' mat-stroked-button routerLink='/faq'>
+              <mat-icon inline='true'>help</mat-icon>
+              <span style='padding-left: 4px'>Hilfe</span></a
+            >
+          </li>
+          <li>
+            <a *appHasRole="['RootAdmin']" class='nav__link' color='accent' mat-stroked-button routerLink='/admin'>
+              <mat-icon inline='true'>security</mat-icon>
+              <span style='padding-left: 4px'>Nutzer</span></a
+            >
+          </li>
+        </ul>
+      </mat-nav-list>
 
-			<ng-template #loading>
-				<div class="loading">
-					<mat-progress-spinner [color]="color" mode="indeterminate" value="50"></mat-progress-spinner>
-				</div>
-			</ng-template>
-		</mat-expansion-panel>
-		<!-- /.sidebar-menu -->
-	</mat-sidenav>
-	<mat-sidenav-content class="page-wrap" style="background-color: #f4f6f9">
-		<mat-toolbar color="primary">
-			<button
-				style="margin-right: 10px"
-				type="button"
-				aria-label="Toggle sidenav"
-				mat-icon-button
-				(click)="drawer.toggle()"
-			>
-				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-			</button>
-			<div class="toolbar__elements">
-				<div></div>
-				<ng-container *ngIf="!currentUser; else showLogout">
-					<button mat-stroked-button color="accent" type="button" routerLink="/login">Login</button>
-				</ng-container>
-				<ng-template #showLogout>
-					<button mat-stroked-button color="accent" type="button" (click)="logout()">Logout</button>
-				</ng-template>
-			</div>
-		</mat-toolbar>
-		<main class="content">
-			<router-outlet></router-outlet>
-		</main>
-		<!-- Add Content Here -->
-		<!-- /.content-wrapper -->
-	</mat-sidenav-content>
+      <ng-template #loading>
+        <div class='loading'>
+          <mat-progress-spinner [color]='color' mode='indeterminate' value='50'></mat-progress-spinner>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+    <!-- /.sidebar-menu -->
+  </mat-sidenav>
+  <mat-sidenav-content class='page-wrap' style='background-color: #f4f6f9'>
+    <mat-toolbar color='primary'>
+      <button
+        (click)='drawer.toggle()'
+        aria-label='Toggle sidenav'
+        mat-icon-button
+        style='margin-right: 10px'
+        type='button'
+      >
+        <mat-icon aria-label='Side nav toggle icon'>menu</mat-icon>
+      </button>
+      <div class='toolbar__elements'>
+        <div></div>
+        <ng-container *ngIf='!currentUser; else showLogout'>
+          <button color='accent' mat-stroked-button routerLink='/login' type='button'>Login</button>
+        </ng-container>
+        <ng-template #showLogout>
+          <button (click)='logout()' color='accent' mat-stroked-button type='button'>Logout</button>
+        </ng-template>
+      </div>
+    </mat-toolbar>
+    <main class='content'>
+      <router-outlet></router-outlet>
+    </main>
+    <!-- Add Content Here -->
+    <!-- /.content-wrapper -->
+  </mat-sidenav-content>
 </mat-sidenav-container>

@@ -6,30 +6,29 @@ import { ThemePalette } from '@angular/material/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-	selector: 'app-layout',
-	templateUrl: './layout.component.html',
-	styleUrls: ['./layout.component.scss'],
+  selector: 'app-layout',
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-	panelOpenState = true;
-	color: ThemePalette = 'accent';
-	currentUser: any;
+  panelOpenState = true;
+  color: ThemePalette = 'accent';
+  currentUser: any;
+  isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map((result) => result.matches),
+    shareReplay()
+  );
 
-	constructor(private _breakpointObserver: BreakpointObserver, private _authService: AuthService) {}
+  constructor(private _breakpointObserver: BreakpointObserver, private _authService: AuthService) {
+  }
 
-	ngOnInit(): void {
-	  if (this._authService.getTokenInfo() !== ''){
+  ngOnInit(): void {
+    if (Object.keys(this._authService.getTokenInfo()).length !== 0) {
       this.currentUser = this._authService.getTokenInfo();
     }
-	}
+  }
 
-	isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
-		map((result) => result.matches),
-		shareReplay()
-	);
-
-	logout() {
-		localStorage.removeItem('token');
-		this.ngOnInit();
-	}
+  logout(): void {
+    localStorage.removeItem('token');
+  }
 }

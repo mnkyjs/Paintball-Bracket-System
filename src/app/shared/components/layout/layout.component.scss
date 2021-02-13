@@ -4,109 +4,109 @@
  * Actual Sticky Footer Styles
  */
 .all-wrap {
-	min-height: 100vh;
+  min-height: 100vh;
 }
 
 .page-wrap {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .content {
-	flex: 1;
+  flex: 1;
 }
 
 /*
  * Make the Component injected by Router Outlet full height:
  */
 main {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	> *:not(router-outlet) {
-		flex: 1;
-		display: block;
-	}
+  > *:not(router-outlet) {
+    flex: 1;
+    display: block;
+  }
 }
 
 mat-sidenav {
-	background-color: #343a40 !important;
-	padding: 0 0.5rem;
-	width: 250px !important;
+  background-color: #343a40 !important;
+  padding: 0 0.5rem;
+  width: 250px !important;
 }
 
 mat-sidenav-content {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 mat-nav-list > ul > li > a {
-	color: #c2c7d0 !important;
+  color: #c2c7d0 !important;
 }
 
 mat-nav-list > ul > li > a:hover {
-	background-color: hsla(0, 0%, 100%, 0.1) !important;
-	color: #fff !important;
-	border-radius: 5px;
+  background-color: hsla(0, 0%, 100%, 0.1) !important;
+  color: #fff !important;
+  border-radius: 5px;
 }
 
 mat-expansion-panel {
-	background-color: transparent !important;
-	margin-top: 15px !important;
+  background-color: transparent !important;
+  margin-top: 15px !important;
 }
 
 mat-expansion-panel-header {
-	background-color: #007bff !important;
-	height: 42px !important;
-	color: #fff !important;
+  background-color: #007bff !important;
+  height: 42px !important;
+  color: #fff !important;
 }
 
 mat-panel-title {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .brand-link {
-	background-color: transparent;
-	border-bottom: 1px solid #4b545c;
+  background-color: transparent;
+  border-bottom: 1px solid #4b545c;
 }
 
 .brand-link > a {
-	color: hsla(0, 0%, 100%, 0.8);
+  color: hsla(0, 0%, 100%, 0.8);
 }
 
 .brand-link > a:hover,
 button:hover {
-	color: variables.$accent;
+  color: variables.$accent;
 }
 
 .elevation-3 {
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
 }
 
 .mat-toolbar.mat-primary {
-	position: sticky;
-	top: 0;
-	z-index: 1;
-	border-bottom: 1px solid #dee2e6;
-	background-color: #fff;
-	color: rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .toolbar__elements {
-	display: flex;
-	width: 100%;
-	align-items: center;
-	flex-direction: row;
-	justify-content: space-between;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .nav__link {
-	width: 100%;
-	display: flex;
+  width: 100%;
+  display: flex;
 }
 
 ::ng-deep div.mat-expansion-panel-body {
-	padding: 0 !important;
+  padding: 0 !important;
 }

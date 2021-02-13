@@ -5,8 +5,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 const modules = [CommonModule, NgxDatatableModule];
 
 @NgModule({
-	declarations: [],
-	imports: [...modules],
-	exports: [...modules],
+  declarations: [],
+  imports: [...modules],
+  exports: [...modules]
 })
-export class NgxModule {}
+export class NgxModule {
+}

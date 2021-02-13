@@ -1,0 +1,40 @@
+<div>
+  <button (click)='onCreate()' color='accent' mat-stroked-button style='margin: 10px 0 10px 5px'>
+    <mat-icon>add</mat-icon>
+    Feld hinzufügen
+  </button>
+
+  <mat-form-field fxFlex='100%' style='margin: 10px; float: right'>
+    <input (keyup)='doFilter($event.target.value)' matInput placeholder='Filter' type='text' />
+  </mat-form-field>
+</div>
+<div style='margin: 5px'>
+  <table [dataSource]='dataSource' class='mat-elevation-z8' mat-table multiTemplateDataRows style='width: 100%'>
+    <!-- Name Column -->
+    <ng-container matColumnDef='name'>
+      <th *matHeaderCellDef mat-header-cell style='width: 350px'>Name</th>
+      <td *matCellDef='let element' mat-cell>
+        {{ element.name | titlecase }}
+      </td>
+    </ng-container>
+
+    Action Column
+    <ng-container matColumnDef='action'>
+      <th *matHeaderCellDef mat-header-cell>Action</th>
+      <td *matCellDef='let element' class='action-link' mat-cell>
+        <button (click)='expandedDetails(element)' class='hover-color' color='primary' mat-icon-button>
+          <mat-icon>info</mat-icon>
+        </button>
+        <button (click)='onEdit(element)' *ngIf='loggedIn()' class='hover-color' color='primary' mat-icon-button>
+          <mat-icon>launch</mat-icon>
+        </button>
+        <button (click)='onDelete(element.id)' *ngIf='loggedIn()' class='primary-color' color='warn' mat-icon-button>
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr *matHeaderRowDef='displayedColumns' mat-header-row></tr>
+    <tr *matRowDef='let row; columns: displayedColumns' mat-row></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]='[10, 20]' showFirstLastButtons></mat-paginator>
+</div>

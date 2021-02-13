@@ -1,0 +1,150 @@
+<mat-horizontal-stepper #stepper [linear]='isLinear'>
+  <mat-step [stepControl]='firstFormGroup'>
+    <form [formGroup]='firstFormGroup'>
+      <ng-template matStepLabel>Wähle deine Teams aus</ng-template>
+      <div>
+        <button
+          (click)='onCreate()'
+          class='hover-color'
+          color='accent'
+          mat-stroked-button
+          style='margin: 10px 0 10px 0'
+        >
+          <mat-icon>add</mat-icon>
+          Team Erstellen
+        </button>
+      </div>
+      <div style='margin-bottom: 10px'>
+        <button class='hover-color' color='primary' mat-stroked-button matStepperNext>Weiter</button>
+      </div>
+      <label>
+        <input
+          (keyup)='updateFilter($event)'
+          placeholder='Team suchen...'
+          style='padding: 8px; margin: 15px auto; width: 30%'
+          type='text'
+        />
+      </label>
+      <ngx-datatable
+        #table
+        (select)='onSelect($event)'
+        [columnMode]="'force'"
+        [footerHeight]='50'
+        [headerHeight]='50'
+        [limit]='7'
+        [rows]='teams'
+        [selectAllRowsOnPage]='false'
+        [selected]='selected'
+        [selectionType]='selectionType.multiClick'
+        class='material'
+        rowHeight='auto'
+        style='width: 100%; cursor: pointer'
+      >
+        <ngx-datatable-column
+          [canAutoResize]='false'
+          [checkboxable]='true'
+          [draggable]='false'
+          [headerCheckboxable]='true'
+          [resizeable]='false'
+          [sortable]='false'
+          [width]='30'
+        >
+          <ng-template
+            let-allRowsSelected='allRowsSelected'
+            let-selectFn='selectFn'
+            let-value='value'
+            ngx-datatable-header-template
+          >
+            <label>
+              <input (change)='selectFn(!allRowsSelected)' [checked]='allRowsSelected' type='checkbox' />
+            </label>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name='Name'>
+          <ng-template let-value='value' ngx-datatable-cell-template>
+            {{ value | titlecase }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name='Actions' prop='id'>
+          <ng-template let-row='actions' let-value='value' ngx-datatable-cell-template>
+            <button (click)='onEdit(value)' *ngIf='loggedIn()' mat-icon-button>
+              <mat-icon>launch</mat-icon>
+            </button>
+
+            <button (click)='onDelete(value)' *ngIf='loggedIn()' color='warn' mat-icon-button>
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]='secondFormGroup'>
+    <form [formGroup]='secondFormGroup'>
+      <ng-template matStepLabel>Wähle ein Datum und Ort</ng-template>
+      <mat-form-field>
+        <label>
+          <input [matDatepicker]='picker' formControlName='secondCtrl' matInput placeholder='Wähle ein Datum' />
+        </label>
+        <mat-datepicker-toggle [for]='picker' matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>Paintballfeld</mat-label>
+        <mat-select formControlName='thirdCtrl' required>
+          <mat-option *ngFor='let field of fieldDtos; trackBy: trackByFn' [value]='field?.id'>
+            {{ field?.name | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class='button-row'>
+        <button mat-stroked-button matStepperPrevious>Zurück</button>
+        <button mat-stroked-button matStepperNext>Weiter</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <form [formGroup]='thirdFormGroup'>
+      <ng-template matStepLabel>Fertig</ng-template>
+
+      <mat-form-field>
+        <mat-label>Anzeigename</mat-label>
+        <label>
+          <input formControlName='fourthCtrl' matInput maxlength='20' placeholder='Trage ein Titel für den Clash ein' />
+        </label>
+      </mat-form-field>
+      <ng-container *ngIf='scheduleToCreate.addClashToAnExistingOne !== undefined'>
+        <mat-checkbox
+          (change)='scheduleToCreate.addClashToAnExistingOne = !scheduleToCreate.addClashToAnExistingOne'
+          [checked]='scheduleToCreate.addClashToAnExistingOne'
+          style='margin: 0 10px'
+        >
+          Hast du bereits ein Spielplan für diesen Tag erstellt?
+        </mat-checkbox>
+        <p>
+          Besteht für den Tag bereits ein Spielplan, dann wähle die Checkbox aus. Sonst wird / werden die bereits
+          erstellten Pläne gelöscht!
+        </p>
+      </ng-container>
+
+      <div class='button-row'>
+        <button class='primary-color' mat-stroked-button matStepperPrevious>Zurück</button>
+        <button (click)='stepper.reset(); onReset()' class='hover-color' color='warn' mat-stroked-button>
+          Reset
+        </button>
+        <button
+          (click)='postSchedule(); stepper.reset(); this.selected.length = 0;'
+          class='hover-color'
+          color='accent'
+          id='submitBtn'
+          mat-stroked-button
+          type='submit'
+        >
+          Erstellen
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

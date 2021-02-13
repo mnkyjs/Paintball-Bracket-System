@@ -1,0 +1,25 @@
+<form [formGroup]='teamForm' class='normal-form'>
+  <h1 mat-dialog-title>Hallo {{ data.username | titlecase }}</h1>
+  <div mat-dialog-content>
+    <p>Wie heißt das neue Team?</p>
+    <input formControlName='id' type='hidden' />
+    <mat-form-field>
+      <input formControlName='name' matInput placeholder='Teamname*' />
+      <mat-error>Du musst ein Namen eingeben!</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button (click)='onNoClick()' class='primary-color' mat-stroked-button>Abbruch</button>
+    <button
+      (click)='create()'
+      [disabled]='teamForm.invalid'
+      [mat-dialog-close]='data.team.name'
+      class='hover-color'
+      color='accent'
+      mat-stroked-button
+      type='submit'
+    >
+      Speichern
+    </button>
+  </div>
+</form>
